@@ -32,13 +32,6 @@
 			</div>
 		</if>
 		
-		<if condition="Type.Events.Count > 0">
-			<h3 class="section">Events</h3>
-			<ul>
-				<li each="var ev in Type.Events">${Format(ev)}</li>
-			</ul>
-		</if>
-		
 		<if condition="Type.Methods.Where(x => x.IsConstructor).Count() > 0">
 			<h3 class="section">Constructors</h3>
 			<ul>
@@ -59,6 +52,13 @@
 			</ul>
 		</if>
 		
+		<if condition="Type.Events.Count > 0">
+			<h3 class="section">Events</h3>
+			<ul>
+				<li each="var ev in Type.Events">${Format(ev)}</li>
+			</ul>
+		</if>
+
 		<if condition="Type.Properties.Count > 0">
 			<h3 class="section">Properties</h3>
 			<ul>
@@ -77,17 +77,17 @@
 	<events events="Type.Events" title="'Events'" />
 	
 	<var publicConstructors="Type.Methods.Where(x => x.IsPublic && x.IsConstructor)" />
-	<methods methods="publicConstructors" title="'Public constructors'" />
+	<methods methods="publicConstructors" title="'Public Constructors'" />
 	
 	<var publicStaticMethods="Type.Methods.Where(x => x.IsPublic && x.IsStatic)" />
-	<methods methods="publicStaticMethods" title="'Public static methods'" />
+	<methods methods="publicStaticMethods" title="'Public Static Functions'" />
 
 	<if condition="!Type.IsStatic">
 		<var publicInstanceMethods="Type.Methods.Where(x => x.IsPublic && !x.IsStatic && !x.IsConstructor)" />
-		<methods methods="publicInstanceMethods" title="'Public instance methods'" />
+		<methods methods="publicInstanceMethods" title="'Public Methods'" />
 	</if>
 	
-	<properties properties="Type.Properties" title="'Public properties'" />
+	<properties properties="Type.Properties" title="'Public Properties'" />
 	<fields fields="Type.Fields" title="'Public fields'" />
 	
 	<use file="../_footer" />
