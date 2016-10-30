@@ -54,11 +54,16 @@ namespace Docu.Documentation
                 }
 
                 declaration = property.declaration;
-                if (declaration != null && declaration.IsDefined(typeof(ObsoleteAttribute)))
-                {
-                    ObsoleteReason = declaration.GetCustomAttribute<ObsoleteAttribute>().Message;
-                }
+                try {
+                    if (declaration != null && declaration.IsDefined(typeof(ObsoleteAttribute))) {
+                        ObsoleteReason = declaration.GetCustomAttribute<ObsoleteAttribute>().Message;
+                    }
 
+                }
+                catch (Exception ex) {
+                    Console.WriteLine("Cannot perform check for custom attributes");
+                    ConvertToExternalReference();
+                }
                 if (!Summary.IsResolved)
                 {
                     Summary.Resolve(referencables);

@@ -101,11 +101,11 @@ namespace Docu
         {
             var assemblies = new List<string>();
 
-            foreach (string arg in args)
-            {
-                if (IsAssemblyArgument(arg))
+            foreach (string arg in args) {
+                string name = arg.Trim();
+                if (IsAssemblyArgument(name))
                 {
-                    assemblies.AddRange(GetFiles(arg));
+                    assemblies.AddRange(GetFiles(name));
                 }
             }
 
@@ -169,8 +169,8 @@ namespace Docu
 
         static bool Verify(IEnumerable<string> arguments, string[] assemblies, string[] xmls)
         {
-            foreach (string argument in arguments)
-            {
+            foreach (string arg in arguments) {
+                var argument = arg.Trim();
                 if (IsAssemblyArgument(argument)
                     || Path.GetExtension(argument).Equals(".xml", StringComparison.OrdinalIgnoreCase))
                 {
